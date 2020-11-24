@@ -51,6 +51,11 @@
             <artifactId>javafx-graphics</artifactId>
             <version>15-ea+5</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>15-ea+5</version>
+        </dependency>
     </dependencies>
 
 

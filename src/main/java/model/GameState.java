@@ -8,7 +8,6 @@ public class GameState {
     public Color previousMoveColor = Color.BLACK;
     public int moveCount = 0;
     int maxDepth = 2;
-    ArrayList<ArrayList<Integer>> moves = new ArrayList<>();
 
     public void getBoard() {
         for (int i = 0; i < 8; i++) {
@@ -127,9 +126,6 @@ public class GameState {
                 if (checker.color == Color.BLACK && newY == 7) checker.isDamka = true;
                 if (checker.color == Color.WHITE && newY == 0) checker.isDamka = true;
 
-                //добавление соданного списка в список совершенных ходов для возможной его отмены в алгоритме ИИ
-                moves.add(currentMove);
-
                 //при успешном ходе переключаем данное поле на ход второго игрока
                 previousMoveColor = checker.color;
 
@@ -147,7 +143,6 @@ public class GameState {
                     if (checker.color == Color.BLACK) currentMove.add(0);
                     else currentMove.add(1);
 
-                    moves.add(currentMove);
                     board[evilX][evilY].setChecker(null);
 
                 } else {
@@ -169,8 +164,7 @@ public class GameState {
                     else currentMove.add(0);
                     if (checker.color == Color.BLACK) currentMove.add(0);
                     else currentMove.add(1);
-
-                    moves.add(currentMove);
+                    
                     board[xx][yy].setChecker(null);
                 }
 
