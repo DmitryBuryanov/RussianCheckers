@@ -34,6 +34,8 @@ public class MainApp extends Application {
     //отрисовка главного экрана приложения
     private Pane makeScreen() throws Exception {
 
+        friendGame = true;
+        iiColor = model.Color.NEITHRAL;
         Image image =
                 new Image(new FileInputStream(new File("src\\main\\resources\\checkers-436285.jpg").getAbsolutePath()));
         ImageView imageView = new ImageView(image);
@@ -76,6 +78,7 @@ public class MainApp extends Application {
         but1.setOnMouseClicked(e -> {
             try {
                 gameState.getBoard();
+                friendGame = true;
                 fillBoard();
                 makeField();
             } catch (Exception ex) {
@@ -262,9 +265,8 @@ public class MainApp extends Application {
             }
 
             //если играем с ИИ, его ход
-            if (!friendGame && moveType != 0 && gameState.previousMoveColor != iiColor) {
+            if (!friendGame && moveType != 0 && model.Color.NEITHRAL != iiColor) {
                 gameState.makeIImove(iiColor);
-                System.out.println(gameState.gameover());
 
                 //проверка на конец партии после хода ИИ
                 String str1 = gameState.gameover();
