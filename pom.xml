@@ -56,6 +56,12 @@
             <artifactId>javafx-controls</artifactId>
             <version>15-ea+5</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 

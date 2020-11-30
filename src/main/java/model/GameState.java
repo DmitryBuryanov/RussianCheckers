@@ -99,29 +99,14 @@ public class GameState {
         //битой шашки(если она имееется, в противном случае туда подаются -1, является ли шашка дамкой(1, если нет - 0),
         //является ли битая шашка дамкой(аналогично, как выше), если она имеется, цвет шашки, совершающей ход
         // черный - 0, белый - 1. Лист Integer, чтобы было удобнее заносить туда координаты, так как они наиболее важны
-        ArrayList<Integer> currentMove = new ArrayList<>();
         int nowX = (int) Math.floor(checker.getOldX() / 100);
         int nowY = (int) Math.floor(checker.getOldY() / 100);
-
-        //добавление координат
-        currentMove.add(nowX);
-        currentMove.add(nowY);
-        currentMove.add(newX);
-        currentMove.add(newY);
 
         if (moveResult != 0) {
             checker.go(newX, newY);
             board[nowX][nowY].setChecker(null);
             board[newX][newY].setChecker(checker);
             if (moveResult == 1) {
-                currentMove.add(-1);
-                currentMove.add(-1);
-                if (checker.isDamka) currentMove.add(1);
-                else currentMove.add(0);
-                currentMove.add(0);
-                if (checker.color == Color.BLACK) currentMove.add(0);
-                else currentMove.add(1);
-                //выше добавление всего остального, что было указано
 
                 if (checker.color == Color.BLACK && newY == 7) checker.isDamka = true;
                 if (checker.color == Color.WHITE && newY == 0) checker.isDamka = true;
@@ -133,15 +118,6 @@ public class GameState {
                 if (!checker.isDamka) {
                     int evilX = (newX + nowX) / 2;
                     int evilY = (newY + nowY) / 2;
-
-                    //то же самое заполнение списка, только тут уже побитая вражеская шашка существует
-                    currentMove.add(evilX);
-                    currentMove.add(evilY);
-                    currentMove.add(0);
-                    if (board[evilX][evilY].getChecker().isDamka) currentMove.add(1);
-                    else currentMove.add(0);
-                    if (checker.color == Color.BLACK) currentMove.add(0);
-                    else currentMove.add(1);
 
                     board[evilX][evilY].setChecker(null);
 
@@ -155,16 +131,6 @@ public class GameState {
                         yy += ly;
                     }
 
-                    //то же заполнение списка хода, только наша шашка уже является дамкой, и может ходить дальше,
-                    // чем раньше
-                    currentMove.add(xx);
-                    currentMove.add(yy);
-                    currentMove.add(1);
-                    if (board[xx][yy].getChecker().isDamka) currentMove.add(1);
-                    else currentMove.add(0);
-                    if (checker.color == Color.BLACK) currentMove.add(0);
-                    else currentMove.add(1);
-                    
                     board[xx][yy].setChecker(null);
                 }
 
@@ -326,11 +292,6 @@ public class GameState {
 
     public void makeIImove(Color color) {
         Integer[] minimax = minimax(0, color);
-        System.out.println(minimax[0]);
-        System.out.println(minimax[1]);
-        System.out.println(minimax[2]);
-        System.out.println(minimax[3]);
-        System.out.println(previousMoveColor);
         makeMove(minimax[2], minimax[3], board[minimax[0]][minimax[1]].getChecker());
     }
 
@@ -379,13 +340,13 @@ public class GameState {
                 if (board[i][j].hasChecker()) {
                     Checker checker = board[i][j].getChecker();
                     if (board[i][j].getChecker().color == Color.BLACK) {
-                        //if (checker.isDamka) blackCount += 3;
-                        //else
+                        if (checker.isDamka) blackCount += 3;
+                        else
                         blackCount++;
                     }
                     if (board[i][j].getChecker().color == Color.WHITE) {
-                        //if (checker.isDamka) whiteCount += 3;
-                        //else
+                        if (checker.isDamka) whiteCount += 3;
+                        else
                         whiteCount++;
                     }
                 }
