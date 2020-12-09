@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class GameState {
     private int fieldSize = 100;
     public Cell[][] board = new Cell[8][8];
